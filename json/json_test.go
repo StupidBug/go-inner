@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 type AnyStruct struct {
@@ -20,4 +22,15 @@ func TestMarshalAny(t *testing.T) {
 	_, ok := a2.Member.(int)
 	t.Log(ok)
 	t.Log(reflect.TypeOf(a2.Member))
+}
+
+func TestUnmarshalSlice(t *testing.T) {
+	var d struct{ Data []string }
+	assert.True(t, nil == d.Data)
+
+	json.Unmarshal([]byte{}, &d)
+	assert.True(t, nil == d.Data)
+
+	json.Unmarshal([]byte("{\"Data\":[\"1\"]}"), &d)
+	assert.False(t, nil == d.Data)
 }
