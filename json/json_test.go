@@ -33,4 +33,7 @@ func TestUnmarshalSlice(t *testing.T) {
 
 	json.Unmarshal([]byte("{\"Data\":[\"1\"]}"), &d)
 	assert.False(t, nil == d.Data)
+
+	json.Unmarshal([]byte("{\"Data\":[]}"), &d)
+	assert.False(t, nil == d.Data)
 }
